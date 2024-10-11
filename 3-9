@@ -1,0 +1,40 @@
+function print_error() {
+    if [[  "$2" == "ru" ]]
+    then
+        code_to_error_ru $1
+    fi 
+
+    if [[  "$2" == "en" ]]
+    then
+        code_to_error_en $1
+    fi 
+}
+
+declare -a ruErrors=(
+    [255]='Работа приложения завершена с ошибкой'
+)
+function code_to_error_ru() {
+    if [ "${ruErrors[$1]+1}" == "1" ]
+    then
+        echo "${ruErrors[$1]}"
+        exit 0
+    fi
+
+    echo "Неизвестная ошибка"
+}
+
+enErrors=(
+    [255]="App was terminate with error"
+)
+function code_to_error_en() {
+    if [ "${enErrors[$1]+1}" == "1" ]
+    then
+        echo "${enErrors[$1]}"
+        exit 0
+    fi
+
+    echo "Unknown error"
+}
+
+
+print_error 55 en
